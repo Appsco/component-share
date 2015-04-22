@@ -51,6 +51,7 @@ class ImageManipulator
 
         $params = array($data);
         if (null !== $quality) {
+            $params[] = null;
             $params[] = $quality;
         }
 
