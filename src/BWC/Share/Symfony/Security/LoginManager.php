@@ -6,14 +6,14 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class LoginManager
 {
-    /** @var \Symfony\Component\Security\Core\SecurityContextInterface */
-    private $_securityContext;
+    /** @var TokenStorageInterface */
+    private $_tokenStorage;
 
     /** @var string */
     private $_providerKey;
@@ -27,12 +27,12 @@ class LoginManager
 
 
     public function __construct(
-        SecurityContextInterface $securityContext,  // @security.context
+        TokenStorageInterface $tokenStorage,  // @security.token_storage
         $providerKey,                               // main - firewall name
         SessionInterface $session,                  // @session
         $sessionAuthKey                             // _security_primary_auth|_security_secured_area  = '_security' + contextName
     ) {
-        $this->_securityContext = $securityContext;
+        $this->_tokenStorage = $tokenStorage;
         $this->_providerKey = $providerKey;
         $this->_session = $session;
         $this->_sessionAuthKey = $sessionAuthKey;
@@ -62,7 +62,7 @@ class LoginManager
 
     public function loginToken(TokenInterface $token)
     {
-        $this->_securityContext->setToken($token);
+        $this->_tokenStorage->setToken($token);
         $this->_session->set($this->_sessionAuthKey, serialize($token));
     }
 
@@ -72,7 +72,7 @@ class LoginManager
      */
     public function getToken()
     {
-        return $this->_securityContext->getToken();
+        return $this->_tokenStorage->getToken();
     }
 
 }
