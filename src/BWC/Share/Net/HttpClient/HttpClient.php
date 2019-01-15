@@ -119,7 +119,7 @@ class HttpClient implements HttpClientInterface
      * @param array $arrHeaders
      * @return string
      */
-    function get($url, array $queryData = array(), array $arrHeaders = array()) {
+    function get($url, array $queryData = array(), array $arrHeaders = null) {
         $arrHeaders[] = 'Content-length: 0';
         $result = $this->request($url, 'GET', $queryData, null, null, $arrHeaders);
         return $result;

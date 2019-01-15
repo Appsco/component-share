@@ -126,4 +126,21 @@ class HttpClientCallbackMock implements HttpClientInterface
         }
     }
 
+    /**
+     * @param bool $value
+     * @return void
+     */
+    public function looseSslCheck($value)
+    {
+        // TODO: Implement looseSslCheck() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorText()
+    {
+        // TODO: Implement getErrorText() method.
+        return '';
+    }
 }

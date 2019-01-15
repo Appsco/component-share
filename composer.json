@@ -1,6 +1,6 @@
 {
     "name": "appsco/component-share",
-    "description": "Common shared stuf",
+    "description": "Common shared stuff",
     "type": "library",
     "license": "MIT",
     "require": {
